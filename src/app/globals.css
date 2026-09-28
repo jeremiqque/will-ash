@@ -1,0 +1,238 @@
+@import "tailwindcss";
+
+/* ──────────────────────────────────────────────────────────────
+   Will & Ash design tokens — mirrors DESIGN-will-ash.md
+   ────────────────────────────────────────────────────────────── */
+@theme {
+  /* Colour */
+  --color-primary: #d81b24;
+  --color-primary-hover: #b3141c;
+  --color-ink: #05070c;
+  --color-slate: #3a3d40;
+  --color-silver: #c0c0c0;
+  --color-canvas: #fcfcfc;
+  --color-hairline: rgb(5 7 12 / 0.12);
+  --color-hairline-dark: rgb(252 252 252 / 0.16);
+  --color-canvas-soft: rgb(5 7 12 / 0.04);
+  --color-scrim: rgb(5 7 12 / 0.6);
+
+  /* Type families */
+  --font-display: var(--font-caslon), "Libre Caslon Display", Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-general-sans), "General Sans", "Helvetica Neue", Arial, sans-serif;
+
+  /* Radius */
+  --radius-xs: 2px;
+  --radius-card: 4px;
+
+  /* Layout */
+  --container-site: 80rem; /* 1280px */
+
+  /* Motion */
+  --ease-out-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Base
+   ────────────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem; /* 17px */
+    line-height: 1.65;
+    font-kerning: normal;
+  }
+
+  h1, h2, h3, h4 {
+    text-wrap: balance;
+    font-weight: 400;
+  }
+
+  p, li, dd {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: var(--color-primary);
+    color: var(--color-canvas);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html:focus-within { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Typography scale — fluid between 375px and 1280px viewports.
+   Display = Libre Caslon Display (≥24px only). Text = General Sans.
+   ────────────────────────────────────────────────────────────── */
+@utility text-display-hero {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.25rem, 1rem + 6.25vw, 6rem);
+  line-height: 1.04;
+  letter-spacing: -0.016em;
+}
+@utility text-display-xl {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.5rem, 1.671rem + 3.536vw, 4.5rem);
+  line-height: 1.08;
+  letter-spacing: -0.014em;
+}
+@utility text-display-lg {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.125rem, 1.555rem + 2.431vw, 3.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.009em;
+}
+@utility text-display-md {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.875rem, 1.5125rem + 1.547vw, 2.75rem);
+  line-height: 1.18;
+  letter-spacing: -0.006em;
+}
+@utility text-display-sm {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.625rem, 1.469rem + 0.663vw, 2rem);
+  line-height: 1.25;
+}
+@utility text-display-xs {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 1.33;
+}
+@utility text-numeral {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.75rem, 2.232rem + 2.21vw, 4rem);
+  line-height: 1;
+  letter-spacing: -0.016em;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+@utility text-eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.8125rem;
+  line-height: 1.23;
+  letter-spacing: 0.115em;
+  text-transform: uppercase;
+}
+@utility text-title {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 1.4;
+  letter-spacing: -0.005em;
+}
+@utility text-body-lg {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(1.125rem, 1.047rem + 0.331vw, 1.25rem);
+  line-height: 1.6;
+}
+@utility text-body-md {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+@utility text-body-sm {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+@utility text-caption {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 0.8125rem;
+  line-height: 1.54;
+}
+@utility text-caps {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.75rem;
+  line-height: 1.33;
+  letter-spacing: 0.083em;
+  text-transform: uppercase;
+}
+@utility text-button {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.9375rem;
+  line-height: 1.33;
+  letter-spacing: 0.013em;
+}
+
+/* Section vertical rhythm: 64px mobile → 128px desktop */
+@utility section-y {
+  padding-block: clamp(4rem, 2.34rem + 7.07vw, 8rem);
+}
+
+/* Comfortable reading measure */
+@utility measure {
+  max-width: 68ch;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Hero headline line reveal (CSS-only, runs once on load)
+   ────────────────────────────────────────────────────────────── */
+@keyframes rise-in {
+  from { transform: translateY(105%); }
+  to { transform: translateY(0); }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.line-mask { display: block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+.line-mask > span {
+  display: block;
+  animation: rise-in 700ms var(--ease-out-soft) both;
+}
+.fade-up { animation: fade-up 600ms var(--ease-out-soft) both; }
+/* Movement only (no fade): large hero text/images are visible from the first
+   paint, which keeps Largest Contentful Paint fast. */
+@keyframes slide-up {
+  from { transform: translateY(16px); }
+  to { transform: translateY(0); }
+}
+.slide-up { animation: slide-up 600ms var(--ease-out-soft) both; }
+
+/* Cookie notice already answered: hide instantly (class set by inline script in layout) */
+.wa-consented [data-cookie-banner] { display: none; }
+
+/* Scroll reveal (see components/ui/reveal.tsx) */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 600ms var(--ease-out-soft), transform 600ms var(--ease-out-soft);
+}
+.reveal[data-shown] { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
