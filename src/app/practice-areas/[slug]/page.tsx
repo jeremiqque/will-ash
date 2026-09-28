@@ -177,7 +177,7 @@ export default async function PracticeAreaPage({ params }: Props) {
                         alt=""
                         fill
                         sizes="(min-width: 768px) 30vw, 100vw"
-                        className="object-cover grayscale transition duration-500 group-hover:grayscale-0"
+                        className="object-cover grayscale transition duration-700 ease-out group-hover:scale-105 group-hover:grayscale-0"
                         style={r.image.position ? { objectPosition: r.image.position } : undefined}
                       />
                     ) : (

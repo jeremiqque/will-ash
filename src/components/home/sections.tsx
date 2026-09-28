@@ -82,7 +82,7 @@ export function PracticesSection() {
                   {pad(i + 1)}
                 </span>
                 <span className="flex-1">
-                  <span className="text-display-xs block">{p.title}</span>
+                  <span className="text-display-xs block transition-transform duration-300 ease-out group-hover:translate-x-1">{p.title}</span>
                   <span className="text-body-sm mt-3 block text-slate">{p.summary}</span>
                 </span>
                 <ArrowBadge className="-mt-1" />
@@ -160,7 +160,7 @@ export function ProcessSection() {
 
         <ol className="mt-16 grid grid-cols-1 gap-x-8 sm:grid-cols-2 lg:grid-cols-4">
           {process.steps.map((s, i) => (
-            <Reveal as="li" key={s.title} delay={i * 0.08} className="border-t border-hairline pt-6 pb-10">
+            <Reveal as="li" key={s.title} delay={i * 0.08} className="line-draw border-t border-hairline pt-6 pb-10">
               <span className="text-display-sm text-primary" aria-hidden>
                 {pad(i + 1)}
               </span>

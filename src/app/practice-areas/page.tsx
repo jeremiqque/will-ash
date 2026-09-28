@@ -40,7 +40,7 @@ export default function PracticeAreasPage() {
                   <span className="text-caps text-slate tabular-nums transition-colors group-hover:text-primary md:col-span-1">
                     {pad(i + 1)}
                   </span>
-                  <h2 className="text-display-sm transition-colors md:col-span-5">{p.title}</h2>
+                  <h2 className="text-display-sm transition-transform duration-300 ease-out group-hover:translate-x-2 md:col-span-5">{p.title}</h2>
                   <p className="text-body-sm text-slate md:col-span-4">{p.summary}</p>
                   <div className="hidden items-center justify-end gap-6 md:col-span-2 md:flex">
                     <div className="relative aspect-[4/3] w-24 overflow-hidden rounded-card">
@@ -51,7 +51,7 @@ export default function PracticeAreasPage() {
                           alt=""
                           fill
                           sizes="96px"
-                          className="object-cover grayscale transition duration-500 group-hover:grayscale-0"
+                          className="object-cover grayscale transition duration-700 ease-out group-hover:scale-110 group-hover:grayscale-0"
                           style={p.image.position ? { objectPosition: p.image.position } : undefined}
                         />
                       ) : (

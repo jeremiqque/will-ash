@@ -26,12 +26,12 @@ export function Accordion({ items }: { items: readonly Item[] }) {
                 aria-expanded={isOpen}
                 aria-controls={panelId}
                 onClick={() => setOpen(isOpen ? null : i)}
-                className="text-title flex w-full items-start justify-between gap-6 py-6 text-left transition-colors hover:text-primary"
+                className="group text-title flex w-full items-start justify-between gap-6 py-6 text-left transition-colors hover:text-primary"
               >
                 <span>{item.q}</span>
                 <Plus
                   className={clsx(
-                    "mt-1 size-5 shrink-0 text-primary transition-transform duration-300",
+                    "mt-1 size-5 shrink-0 text-primary transition-transform duration-300 group-hover:scale-110",
                     isOpen && "rotate-45",
                   )}
                 />
@@ -46,7 +46,7 @@ export function Accordion({ items }: { items: readonly Item[] }) {
                 isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
               )}
             >
-              <div className="overflow-hidden" inert={!isOpen}>
+              <div className={clsx("overflow-hidden transition-opacity duration-300", isOpen ? "opacity-100 delay-100" : "opacity-0")} inert={!isOpen}>
                 <p className="text-body-md measure pb-6 text-slate">{item.a}</p>
               </div>
             </div>

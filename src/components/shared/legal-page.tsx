@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { PageHero } from "./page-hero";
 import { Container, Section } from "@/components/ui/primitives";
 import { bulletDataUri } from "@/components/ui/icons";
+import { LegalToc } from "./legal-toc";
 
 export type LegalSection = { id: string; title: string; body: ReactNode };
 
@@ -26,21 +27,7 @@ export function LegalPage({
         <Container>
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8">
             <aside className="lg:col-span-3">
-              <nav aria-label="On this page" className="lg:sticky lg:top-28">
-                <p className="text-caps text-slate">On this page</p>
-                <ol className="text-body-sm mt-4 space-y-2 border-l border-hairline">
-                  {sections.map((s, i) => (
-                    <li key={s.id}>
-                      <a
-                        href={`#${s.id}`}
-                        className="-ml-px block border-l border-transparent py-1 pl-4 text-slate transition-colors hover:border-primary hover:text-ink"
-                      >
-                        {i + 1}. {s.title}
-                      </a>
-                    </li>
-                  ))}
-                </ol>
-              </nav>
+              <LegalToc items={sections.map(({ id, title }) => ({ id, title }))} />
             </aside>
 
             <article className="lg:col-span-8 lg:col-start-5">

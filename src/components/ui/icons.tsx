@@ -18,15 +18,18 @@ import {
   Cancel01Icon,
   CheckmarkCircle02Icon,
   Clock01Icon,
+  Copy01Icon,
   GoogleIcon,
   Navigation03Icon,
   Rhombus01Icon,
   InstagramIcon,
   JusticeScale01Icon,
+  Loading03Icon,
   Location01Icon,
   Mail01Icon,
   Menu01Icon,
   SecurityCheckIcon,
+  Tick02Icon,
 } from "@hugeicons/core-free-icons";
 
 type IconSvg = Parameters<typeof HugeiconsIcon>[0]["icon"];
@@ -56,6 +59,9 @@ export const ChevronDown = make(ArrowDown01Icon, "ChevronDown");
 export const Plus = make(Add01Icon, "Plus");
 export const Menu = make(Menu01Icon, "Menu");
 export const Close = make(Cancel01Icon, "Close");
+export const Spinner = make(Loading03Icon, "Spinner");
+export const Copy = make(Copy01Icon, "Copy");
+export const Tick = make(Tick02Icon, "Tick");
 
 /* Section label marker (echoes the angular W&A mark) */
 export const Marker = make(Rhombus01Icon, "Marker");

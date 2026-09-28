@@ -66,7 +66,7 @@ export function Eyebrow({
 type ButtonVariant = "primary" | "dark" | "outline-dark" | "outline-light" | "light";
 
 const buttonBase =
-  "text-button group inline-flex min-h-[52px] items-center justify-center gap-2.5 whitespace-nowrap rounded-xs border px-6 py-4 transition-colors duration-200 ease-out";
+  "text-button group inline-flex min-h-[52px] items-center justify-center gap-2.5 whitespace-nowrap rounded-xs border px-6 py-4 transition-[color,background-color,border-color,transform] duration-200 ease-out active:scale-[0.98]";
 
 const buttonVariant: Record<ButtonVariant, string> = {
   primary: "border-primary bg-primary text-canvas hover:border-primary-hover hover:bg-primary-hover",
@@ -117,9 +117,10 @@ export function ArrowLink({
     >
       <span className="relative">
         {children}
+        <span aria-hidden className="absolute -bottom-1 left-0 h-px w-full bg-current opacity-20" />
         <span
           aria-hidden
-          className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-100 bg-primary transition-transform duration-300 ease-out group-hover:scale-x-[1.04]"
+          className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-[0.35] bg-primary transition-transform duration-500 ease-[cubic-bezier(0.2,0.7,0.2,1)] group-hover:scale-x-100 group-focus-visible:scale-x-100"
         />
       </span>
       <ArrowRight className="size-4 text-primary transition-transform duration-200 group-hover:translate-x-1" />
@@ -138,7 +139,7 @@ export function ArrowBadge({ className }: { className?: string }) {
         className,
       )}
     >
-      <ArrowUpRight size={18} className="transition-transform duration-300 group-hover:-translate-y-px group-hover:translate-x-px" />
+      <ArrowUpRight size={18} className="transition-transform duration-300 group-hover:rotate-45" />
     </span>
   );
 }

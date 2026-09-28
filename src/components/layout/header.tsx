@@ -19,6 +19,7 @@ import { ArrowRight, ChevronDown, Close, Menu } from "@/components/ui/icons";
 export function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
+  const [tucked, setTucked] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [practiceOpen, setPracticeOpen] = useState(false);
   const menuButton = useRef<HTMLButtonElement>(null);
@@ -26,7 +27,16 @@ export function Header() {
   const dropdownId = useId();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    // Tuck the bar away while scrolling down; bring it back on any scroll up.
+    let lastY = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 40);
+      if (Math.abs(y - lastY) > 6) {
+        setTucked(y > lastY && y > 480);
+        lastY = y;
+      }
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -81,7 +91,12 @@ export function Header() {
     );
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
+    <header
+      className={clsx(
+        "fixed inset-x-0 top-0 z-50 transition-transform duration-500 ease-[cubic-bezier(0.2,0.7,0.2,1)]",
+        tucked && !menuOpen && !practiceOpen && "-translate-y-[calc(100%+1rem)]",
+      )}
+    >
       {/* 1. Announcement strip */}
       <div
         className={clsx(
@@ -126,8 +141,11 @@ export function Header() {
 
                       <div
                         id={dropdownId}
-                        hidden={!practiceOpen}
-                        className="absolute top-full left-1/2 mt-5 w-[22rem] -translate-x-1/2 rounded-card border border-hairline-dark bg-ink p-2"
+                        inert={!practiceOpen}
+                        className={clsx(
+                          "absolute top-full left-1/2 mt-5 w-[22rem] -translate-x-1/2 rounded-card border border-hairline-dark bg-ink p-2 transition-[opacity,translate,visibility] duration-200 ease-out",
+                          practiceOpen ? "visible translate-y-0 opacity-100" : "invisible -translate-y-2 opacity-0",
+                        )}
                       >
                         <ul>
                           {practiceAreas.map((p) => (
@@ -192,13 +210,25 @@ export function Header() {
           {/* Mobile menu — opens inside the bar */}
           <div
             id="mobile-menu"
-            hidden={!menuOpen}
-            className="max-h-[calc(100dvh-8.5rem)] overflow-y-auto border-t border-hairline-dark lg:hidden"
+            inert={!menuOpen}
+            className={clsx(
+              "grid transition-[grid-template-rows,opacity] duration-300 ease-out lg:hidden",
+              menuOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
+            )}
           >
+            <div className="min-h-0 overflow-hidden">
+            <div className="max-h-[calc(100dvh-8.5rem)] overflow-y-auto border-t border-hairline-dark">
             <nav aria-label="Mobile" className="px-5 pt-2 pb-6">
               <ul>
-                {navigation.map((item) => (
-                  <li key={item.href}>
+                {navigation.map((item, i) => (
+                  <li
+                    key={item.href}
+                    className={clsx(
+                      "transition-[opacity,translate] duration-500 ease-out",
+                      menuOpen ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0",
+                    )}
+                    style={{ transitionDelay: menuOpen ? `${80 + i * 50}ms` : "0ms" }}
+                  >
                     <Link
                       href={item.href}
                       aria-current={isActive(item.href) ? "page" : undefined}
@@ -227,6 +257,8 @@ export function Header() {
                 <p>{site.hours}</p>
               </div>
             </nav>
+            </div>
+            </div>
           </div>
         </div>
       </div>

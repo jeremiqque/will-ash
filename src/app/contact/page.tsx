@@ -5,6 +5,7 @@ import { OfficeCard } from "@/components/shared/blocks";
 import { ContactForm } from "@/components/forms/contact-form";
 import { ArrowLink, Container, Eyebrow, Section } from "@/components/ui/primitives";
 import { Reveal } from "@/components/ui/reveal";
+import { CopyButton } from "@/components/ui/copy-button";
 import { Clock, Google, Instagram, Mail, Phone } from "@/components/ui/icons";
 
 export const metadata: Metadata = {
@@ -46,6 +47,7 @@ export default function ContactPage() {
                         <a href={`mailto:${site.email}`} className="mt-1 block break-all hover:underline">
                           {site.email}
                         </a>
+                        <CopyButton value={site.email} label="email address" className="mt-3" />
                       </div>
                     </li>
                     {site.phone && (

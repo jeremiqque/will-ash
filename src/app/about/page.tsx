@@ -73,7 +73,7 @@ export default function AboutPage() {
 
           <ol className="mt-16 grid grid-cols-1 gap-x-8 md:grid-cols-3">
             {approach.pillars.map((p, i) => (
-              <Reveal as="li" key={p.title} delay={i * 0.08} className="border-t border-hairline-dark pt-6 pb-8">
+              <Reveal as="li" key={p.title} delay={i * 0.08} className="line-draw border-t border-hairline-dark pt-6 pb-8">
                 <span className="text-display-xs text-primary tabular-nums">{pad(i + 1)}</span>
                 <h3 className="text-display-md mt-8">{p.title}</h3>
                 <p className="text-body-sm mt-4 text-silver">{p.text}</p>
@@ -98,8 +98,8 @@ export default function AboutPage() {
             </Reveal>
             <ul className="grid grid-cols-1 gap-4 sm:grid-cols-3 lg:col-span-7 lg:col-start-6">
               {team.points.map((pt, i) => (
-                <Reveal as="li" key={pt.title} delay={i * 0.08} className="rounded-card bg-canvas p-8">
-                  <Bullet size={24} className="text-primary" />
+                <Reveal as="li" key={pt.title} delay={i * 0.08} className="group rounded-card border border-transparent p-8 transition-[translate,border-color] duration-300 ease-out hover:-translate-y-1 hover:border-ink/15 bg-canvas">
+                  <Bullet size={24} className="text-primary transition-transform duration-500 ease-out group-hover:scale-110" />
                   <h3 className="text-title mt-8">{pt.title}</h3>
                   <p className="text-body-sm mt-3 text-slate">{pt.text}</p>
                 </Reveal>

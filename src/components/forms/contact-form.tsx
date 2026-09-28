@@ -6,6 +6,7 @@ import clsx from "clsx";
 import { sendEnquiry, type ContactField, type ContactState } from "@/app/contact/actions";
 import { practiceAreas } from "@/content/practice-areas";
 import { Select } from "./select";
+import { ArrowRight, Spinner, Tick } from "@/components/ui/icons";
 
 const initialState: ContactState = { status: "idle", message: "", errors: {}, values: {} };
 
@@ -26,8 +27,11 @@ function Field({
   children: React.ReactNode;
 }) {
   return (
-    <div>
-      <label htmlFor={id} className="text-caps mb-2 flex justify-between text-ink">
+    <div className="group/field">
+      <label
+        htmlFor={id}
+        className="text-caps mb-2 flex justify-between text-ink transition-colors duration-200 group-focus-within/field:text-primary"
+      >
         {label}
         {optional && <span className="text-slate normal-case tracking-normal">Optional</span>}
       </label>
@@ -60,7 +64,10 @@ export function ContactForm({ defaultPractice }: { defaultPractice?: string }) {
   if (state.status === "success") {
     return (
       <div ref={statusRef} tabIndex={-1} role="status" className="rounded-card border border-hairline p-8 focus:outline-none">
-        <p className="text-eyebrow text-primary">Message sent</p>
+        <span className="pop-in inline-flex size-12 items-center justify-center rounded-full bg-primary text-canvas">
+          <Tick size={24} strokeWidth={2} />
+        </span>
+        <p className="text-eyebrow mt-6 text-primary">Message sent</p>
         <p className="text-display-sm mt-4">{state.message}</p>
       </div>
     );
@@ -180,9 +187,19 @@ export function ContactForm({ defaultPractice }: { defaultPractice?: string }) {
         <button
           type="submit"
           disabled={pending}
-          className="text-button inline-flex min-h-[52px] items-center justify-center rounded-xs border border-primary bg-primary px-8 text-canvas transition-colors hover:bg-primary-hover disabled:cursor-wait disabled:opacity-70"
+          className="text-button group inline-flex min-h-[52px] items-center justify-center gap-2.5 rounded-xs border border-primary bg-primary px-8 text-canvas transition-[background-color,transform] duration-200 hover:bg-primary-hover active:scale-[0.98] disabled:cursor-wait disabled:opacity-80"
         >
-          {pending ? "Sending…" : "Send enquiry"}
+          {pending ? (
+            <>
+              <Spinner size={18} className="animate-spin" />
+              Sending…
+            </>
+          ) : (
+            <>
+              Send enquiry
+              <ArrowRight size={16} className="transition-transform duration-200 group-hover:translate-x-1" />
+            </>
+          )}
         </button>
         <p className="text-caption text-slate">Submitting this form does not create a lawyer and client relationship.</p>
       </div>

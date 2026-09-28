@@ -2,6 +2,7 @@ import { home } from "@/content/home";
 import { consultationHref, site } from "@/content/site";
 import { ArrowLink, ButtonLink, Container, Eyebrow, Section } from "@/components/ui/primitives";
 import { Reveal } from "@/components/ui/reveal";
+import { CountUp } from "@/components/ui/count-up";
 import { Pin, valueIcons } from "@/components/ui/icons";
 
 /* ── Stats row ─────────────────────────────────────────────── */
@@ -15,7 +16,9 @@ export function StatsRow({ className = "" }: { className?: string }) {
           className="flex flex-col border-b border-hairline py-8 sm:border-b-0 sm:border-l sm:px-8 sm:first:border-l-0 sm:first:pl-0"
         >
           <dt className="text-caps order-2 mt-4 text-slate">{s.label}</dt>
-          <dd className="text-numeral -order-1">{s.value}</dd>
+          <dd className="text-numeral -order-1">
+            <CountUp value={s.value} />
+          </dd>
         </Reveal>
       ))}
     </dl>
@@ -47,9 +50,9 @@ export function ValuesSection({ tone = "soft" }: { tone?: "soft" | "light" }) {
                   as="li"
                   key={v.title}
                   delay={i * 0.08}
-                  className={`rounded-card p-8 ${tone === "soft" ? "bg-canvas" : "bg-canvas-soft"}`}
+                  className={`group rounded-card border border-transparent p-8 transition-[translate,border-color] duration-300 ease-out hover:-translate-y-1 hover:border-ink/15 ${tone === "soft" ? "bg-canvas" : "bg-canvas-soft"}`}
                 >
-                  <Icon className="size-8 text-primary" />
+                  <Icon className="size-8 text-primary transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-rotate-6" />
                   <h3 className="text-title mt-8">{v.title}</h3>
                   <p className="text-body-sm mt-3 text-slate">{v.text}</p>
                 </Reveal>
@@ -65,7 +68,7 @@ export function ValuesSection({ tone = "soft" }: { tone?: "soft" | "light" }) {
 /* ── Office card ───────────────────────────────────────────── */
 export function OfficeCard({ office }: { office: (typeof site.offices)[number] }) {
   return (
-    <article className="flex h-full flex-col overflow-hidden rounded-card border border-hairline bg-canvas">
+    <article className="group flex h-full flex-col overflow-hidden rounded-card border border-hairline bg-canvas transition-colors duration-300 hover:border-ink/30">
       <div className="flex flex-1 flex-col p-8">
         <p className="text-caps text-slate">Office</p>
         <h3 className="text-display-sm mt-2">{office.city}</h3>
@@ -77,7 +80,7 @@ export function OfficeCard({ office }: { office: (typeof site.offices)[number] }
           ))}
         </address>
         <div className="mt-6 flex items-center gap-3">
-          <Pin className="size-5 text-primary" />
+          <Pin className="size-5 text-primary transition-transform duration-300 ease-out group-hover:-translate-y-1" />
           <ArrowLink href={office.mapUrl}>Get directions</ArrowLink>
         </div>
       </div>
