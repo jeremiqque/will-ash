@@ -51,11 +51,11 @@ export const legalLinks = [
 export const consultationHref = "/book";
 
 /**
- * Online booking link (e.g. "https://cal.com/willandash/consultation").
- * Paste the firm's Cal.com link here and a "Choose a time" button appears on
+ * Online booking link (Calendly).
+ * The firm's Calendly link is set here and a "Choose a time" button appears on
  * the Book page. Leave it empty to show no button.
  */
-export const bookingUrl = "";
+export const bookingUrl = "https://calendly.com/willandashlaw";
 
 /** Thin strip above the navigation bar. Keep it to one short line. */
 export const announcement = {
